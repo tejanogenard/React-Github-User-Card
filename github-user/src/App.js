@@ -1,31 +1,8 @@
-// import React from 'react';
-// import logo from './logo.svg';
-// import './App.css';
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
-// export default App;
 
 import React from 'react';
 import axios from 'axios';
+import './App.css';
+ 
 
 class App extends React.Component{
     state = {
@@ -36,9 +13,9 @@ class App extends React.Component{
 
     componentDidMount() {
         axios
-            .get(`https://api.github.com/users/tejanogenard`)
+            .get(`https://api.github.com/users/tejanogenard/followers`)
             .then(res => {
-                  console.log(res)
+                  console.log(res.data)
                 // setState with the incoming data 
                 this.setState({
                     //  users: res.data.....
@@ -53,6 +30,18 @@ class App extends React.Component{
         return(
             <div className = "App">
                 <h1>Github Friends</h1>
+                <div className = "git-friends">
+                    {this.state.users.map(user => {
+                        console.log(user)
+                    return (
+                        <div>
+                            <img width="200" src={user.avatar_url} key={user.id} alt={user}/>
+                    <p>Username: {user.login}</p>
+                    <p>followers: {user.followers_url.length}</p>
+                        </div>
+                    )})}
+
+                </div>
             </div>
         )
     }
